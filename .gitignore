@@ -1,0 +1,18 @@
+
+.env
+
+data/
+*.session
+*.session-journal
+
+temp_*.pdf
+.DS_Store
+
+# Игнорировать настройки IDE (PyCharm / VS Code)
+.idea/
+.vscode/
+*.iml
+
+# Кэш python
+__pycache__/
+*.py[cod]
