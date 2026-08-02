@@ -68,30 +68,43 @@ with tab_resume:
 with tab_settings:
     st.header("Настройка критериев поиска")
 
+    # Используем st.session_state для сохранения ключевых слов
+    if "keywords_input" not in st.session_state:
+        st.session_state.keywords_input = "Python, QA, Automation, SQL, Тестирование, AQA, AQA Engineer, QA Engineer, Инженер по тестированию, Тестировщик"
+
     keywords_input = st.text_input(
         "Ключевые слова для поиска вакансий (через запятую):",
-        value="Python, QA, Automation, SQL, Тестирование, AQA, AQA Engineer, QA Engineer, Инженер по тестированию, Тестировщик"
+        value=st.session_state.keywords_input
     )
+    st.session_state.keywords_input = keywords_input
     keywords = [k.strip() for k in keywords_input.split(",") if k.strip()]
 
     st.subheader("Список Telegram-каналов")
+
+    # Используем st.session_state для сохранения списка каналов
+    if "channels_input" not in st.session_state:
+        st.session_state.channels_input = (
+            "https://t.me/rabotadlaqa\n"
+            "https://t.me/qajobsru\n"
+            "https://t.me/qajobsoffers\n"
+            "https://t.me/jobforqa\n"
+            "https://t.me/qajoboffer\n"
+            "https://t.me/qamatch\n"
+            "https://t.me/jobfortester\n"
+            "https://t.me/jobsearchgod\n"
+            "https://t.me/qa_jobs"
+        )
+
     channels_input = st.text_area(
         "Введите ссылки или юзернеймы каналов (по одному на строку):",
-        value="https://t.me/rabotadlaqa\n"
-              "https://t.me/qajobsru\n"
-              "https://t.me/qajobsoffers\n"
-              "https://t.me/jobforqa\n"
-              "https://t.me/qajoboffer\n"
-              "https://t.me/qamatch\n"
-              "https://t.me/qajobsoffers\n"
-              "https://t.me/jobfortester\n"
-              "https://t.me/jobsearchgod\n"
-              "https://t.me/rabotadlaqa\n"
-              "https://t.me/qajobsru\n"
-              "https://t.me/qa_jobs",
+        value=st.session_state.channels_input,
         height=150
     )
+    st.session_state.channels_input = channels_input
     channels_list = [c.strip() for c in channels_input.split("\n") if c.strip()]
+
+    # Сохраняем в глобальный session_state, чтобы вкладка 3 их видела
+    st.session_state.channels_list = channels_list
 
 # -----------------------------------------------------------------------------
 # Вкладка 3: Сканирование каналов
