@@ -1,3 +1,4 @@
+import os
 import re
 from telethon import TelegramClient, events
 from config import TELEGRAM_API_ID, TELEGRAM_API_HASH, SESSION_PATH
@@ -13,15 +14,26 @@ class TelegramWorker:
     async def init_client(self):
         """Инициализация и запуск клиента Telegram через официальный MTProto прокси"""
         if not self.client or not self.client.is_connected():
-            proxy_config = ("127.0.0.1", 1443, 'ddca074a3c7e2f247657714dd984879069')
+            is_cloud = os.path.exists("/mount")
 
-            self.client = TelegramClient(
-                SESSION_PATH,
-                int(self.api_id),
-                self.api_hash,
-                connection=ConnectionTcpMTProxyRandomizedIntermediate,
-                proxy=proxy_config
-            )
+            if is_cloud:
+                # Подключение напрямую (для облака Streamlit)
+                self.client = TelegramClient(
+                    SESSION_PATH,
+                    int(self.api_id),
+                    self.api_hash
+                )
+            else:
+                # Подключение с вашим локальным прокси (для вашего компьютера)
+                proxy_config = ("127.0.0.1", 1443, 'ddca074a3c7e2f247657714dd984879069')
+                self.client = TelegramClient(
+                    SESSION_PATH,
+                    int(self.api_id),
+                    self.api_hash,
+                    connection=ConnectionTcpMTProxyRandomizedIntermediate,
+                    proxy=proxy_config
+                )
+
             await self.client.start()
 
     def extract_hr_contacts(self, text: str) -> list[str]:
