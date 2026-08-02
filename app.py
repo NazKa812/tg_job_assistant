@@ -56,7 +56,7 @@ with tab_resume:
     st.subheader("2. Пожелания к сопроводительному письму (Промпт)")
     custom_prompt = st.text_area(
         "Укажите правила и акценты для ИИ при написании писем:",
-        value="Составь краткое, емкое сопроводительное письмо (до 500 символов). "
+        value="Составь краткое, емкое сопроводительное письмо (до 700 символов). "
               "Подчеркни релевантный опыт и ключевые навыки под эту вакансию. "
               "Пиши без клише и без скобок.",
         height=100
@@ -70,14 +70,25 @@ with tab_settings:
 
     keywords_input = st.text_input(
         "Ключевые слова для поиска вакансий (через запятую):",
-        value="Python, QA, Automation, SQL, Тестирование"
+        value="Python, QA, Automation, SQL, Тестирование, AQA, AQA Engineer, QA Engineer, Инженер по тестированию, Тестировщик"
     )
     keywords = [k.strip() for k in keywords_input.split(",") if k.strip()]
 
     st.subheader("Список Telegram-каналов")
     channels_input = st.text_area(
         "Введите ссылки или юзернеймы каналов (по одному на строку):",
-        value="https://t.me/rabotadlaqa\nhttps://t.me/qajobsru\nhttps://t.me/qajobsoffers",
+        value="https://t.me/rabotadlaqa\n"
+              "https://t.me/qajobsru\n"
+              "https://t.me/qajobsoffers\n"
+              "https://t.me/jobforqa\n"
+              "https://t.me/qajoboffer\n"
+              "https://t.me/qamatch\n"
+              "https://t.me/qajobsoffers\n"
+              "https://t.me/jobfortester\n"
+              "https://t.me/jobsearchgod\n"
+              "https://t.me/rabotadlaqa\n"
+              "https://t.me/qajobsru\n"
+              "https://t.me/qa_jobs",
         height=150
     )
     channels_list = [c.strip() for c in channels_input.split("\n") if c.strip()]
